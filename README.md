@@ -14,7 +14,9 @@ git clone https://github.com/motiond3v/abdfmw.git
 ```
 Once you're done with that, go ahead and open up the included config.json file, and change it as needed.
 
-> Note: The dependencies for this bot are chalk, moment, randomcolor, and obviously discord.js
+> For selfbots, add "selfbot": true to the config file.
+
+> Note: The dependencies for this bot are chalk, moment, and obviously discord.js
 
 > Node 6 or higher is required!
 
