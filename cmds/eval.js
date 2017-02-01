@@ -22,7 +22,7 @@ exports.conf = {
   permLevel: 4
 };
 
-exports.helpcmd = {
+exports.help = {
   name: "eval",
   description: "Evaluates javascript code snippets",
   usage: "<expression:str>",

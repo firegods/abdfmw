@@ -29,7 +29,7 @@ exports.conf = {
   permLevel: 4
 };
 
-exports.helpcmd = {
+exports.help = {
   name: "reload",
   description: "Reloads specified command",
   usage: "reload <commandname>"

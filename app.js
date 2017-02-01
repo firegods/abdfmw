@@ -5,6 +5,7 @@ const moment = require("moment");
 const chalk = require("chalk");
 const clk = new chalk.constructor({ enabled: true });
 
+//load config attemp
 try{
   bot.config = require("./config.json");
 } catch (e) {
@@ -19,12 +20,14 @@ try{
   }
 }
 
+//extend bot
 bot.log = msg => {console.log(`${clk.bgBlue(`[${moment().format("YYYY-MM-DD HH:mm:ss")}]`)} ${msg}`);};
 bot.functions = {};
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 bot.commandInhibitors = new Discord.Collection();
 
+//load core functions
 fs.readdir("./functions/core", (err, files) => {
   bot.functions.core = {};
   if (err) console.error(err);
@@ -38,8 +41,8 @@ fs.readdir("./functions/core", (err, files) => {
   bot.functions.core.loadCommandInhibitors(bot);
 });
 
+//message event
 bot.on("message", msg => {
-  if (msg.author.bot) return;
   if (!msg.content.startsWith(bot.config.prefix)) return;
   let command = msg.content.split(" ")[0].slice(bot.config.prefix.length);
   let params = msg.content.split(" ").slice(1);
@@ -57,11 +60,25 @@ bot.on("message", msg => {
   }
 });
 
+//load events - possibly move out in the future
+fs.readdir('./events', (err, files) => {
+  if(err) return console.error(err);
+  files.forEach(file=> {
+    let eventFile = require(`./events/${file}`);
+    let eventName = file.split('.')[0];
+    bot.on(eventName, (...params) => eventFile.run(bot, ...params));
+  });
+  bot.log(`Loaded ${files.length} events`);
+});
+
+//ready event
 bot.on("ready", () => {
   bot.log(`${bot.user.username}: Ready to serve ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} servers.`);
 });
 
+//error and warn
 bot.on("error", console.error);
 bot.on("warn", console.warn);
 
+//login
 bot.login(bot.config.botToken);

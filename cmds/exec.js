@@ -22,7 +22,7 @@ exports.conf = {
   permLevel: 4
 };
 
-exports.helpcmd = {
+exports.help = {
   name: "exec",
   description: "Executes console commands.",
   usage: "<expression:str>",

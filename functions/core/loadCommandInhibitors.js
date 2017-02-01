@@ -13,6 +13,7 @@ module.exports = bot => {
         p++;
       }
     });
+    if (p === 0) return;
     bot.log(`Loaded ${p} command inhibitors`);
   });
 };

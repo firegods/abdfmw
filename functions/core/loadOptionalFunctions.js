@@ -13,6 +13,7 @@ module.exports = bot => {
         o++;
       }
     });
+    if (o === 0) return;
     bot.log(`Loaded ${o} optional functions`);
   });
 };
