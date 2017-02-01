@@ -39,10 +39,12 @@ fs.readdir("./functions/core", (err, files) => {
   bot.functions.core.loadOptionalFunctions(bot);
   bot.functions.core.loadCommands(bot);
   bot.functions.core.loadCommandInhibitors(bot);
+  bot.functions.core.loadEvents(bot);
 });
 
 //message event
 bot.on("message", msg => {
+  if (msg.author.bot) return;
   if (!msg.content.startsWith(bot.config.prefix)) return;
   let command = msg.content.split(" ")[0].slice(bot.config.prefix.length);
   let params = msg.content.split(" ").slice(1);
@@ -60,24 +62,17 @@ bot.on("message", msg => {
   }
 });
 
-//load events - possibly move out in the future
-fs.readdir('./events', (err, files) => {
-  if(err) return console.error(err);
-  files.forEach(file=> {
-    let eventFile = require(`./events/${file}`);
-    let eventName = file.split('.')[0];
-    bot.on(eventName, (...params) => eventFile.run(bot, ...params));
-  });
-  bot.log(`Loaded ${files.length} events`);
-});
-
 //ready event
 bot.on("ready", () => {
   bot.log(`${bot.user.username}: Ready to serve ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} servers.`);
 });
 
 //error and warn
+
+  //error
 bot.on("error", console.error);
+
+  //warn
 bot.on("warn", console.warn);
 
 //login
