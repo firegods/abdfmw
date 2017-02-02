@@ -26,4 +26,5 @@ exports.help = {
   name: "eval",
   description: "Evaluates javascript code snippets",
   usage: "<expression:str>",
+  category: 'Owner Utilites'
 };

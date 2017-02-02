@@ -5,7 +5,7 @@ exports.run = (bot, msg, params) => {
     let command = params[0];
     if(bot.commands.has(command)) {
       command = bot.commands.get(command);
-      msg.channel.sendCode("asciidoc", `= ${command.help.name} = \n${command.help.description}\nusage::${command.help.usage}`);
+      msg.channel.sendCode("asciidoc", `= ${command.help.name} = \n${command.help.description}\nUsage::${command.help.usage}\nCategory::${command.help.category}`);
     }
   }
 };
@@ -19,5 +19,6 @@ exports.conf = {
 exports.help = {
   name : "help",
   description: "Displays this message",
-  usage: "help [command]"
+  usage: "help [command]",
+  category: 'Core'
 };

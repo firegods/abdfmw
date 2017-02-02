@@ -26,4 +26,5 @@ exports.help = {
   name: "exec",
   description: "Executes console commands.",
   usage: "<expression:str>",
+  category: 'Owner Utilities'
 };
